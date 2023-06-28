@@ -1,4 +1,4 @@
-module Engine
+module github.com/MarkSalvi/cubeEngine
 
 go 1.19
 
