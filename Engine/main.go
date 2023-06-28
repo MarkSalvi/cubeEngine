@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	windWidth  = 1820
-	windHeight = 1000
+	windWidth  = 1920
+	windHeight = 1080
 )
 
 func init() {
@@ -84,10 +84,9 @@ func main() {
 	}
 	defer sdl.Quit()
 	var flags uint32
-	flags = sdl.WINDOW_INPUT_GRABBED | sdl.WINDOW_OPENGL
+	flags = sdl.WINDOW_INPUT_GRABBED | sdl.WINDOW_OPENGL | sdl.WINDOW_FULLSCREEN
 
-	window, err := sdl.CreateWindow("CIAO", 20, 20, windWidth, windHeight, flags)
-	//sdl.SetRelativeMouseMode(true)
+	window, err := sdl.CreateWindow("CIAO", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED, windWidth, windHeight, flags)
 
 	if err != nil {
 		panic(err)
@@ -134,25 +133,30 @@ func main() {
 	position := mgl32.Vec3{0.0, 0.0, 3.0}
 	worldUp := mgl32.Vec3{0.0, 1.0, 0.0}
 
-	camera := glHelper.NewCamera(position, worldUp, -90.0, 0.0, 0.01, 0.1)
+	camera := glHelper.NewCamera(position, worldUp, -90.0, 0.0, 0.01, 0.5)
 	elapsedTime := float32(0)
+	sdl.SetRelativeMouseMode(true)
 	sdl.WarpMouseGlobal((windWidth+20)/2, (windHeight+20)/2)
-	prevMouseX, prevMouseY, _ := sdl.GetMouseState()
 	gl.Enable(gl.DEPTH_TEST)
+
+	//game Loop
 	for {
 		frameStart := time.Now()
+		var mouseX, mouseY int32
 
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
-			switch event.(type) {
+			switch t := event.(type) {
 			case *sdl.QuitEvent:
+				sdl.SetRelativeMouseMode(false)
 				return
+			case *sdl.MouseMotionEvent:
+				mouseX, mouseY = t.XRel, t.YRel
+				//todo fix max and min pitch camera problem
 			}
 		}
 
 		dir := keyStrokes(keyboardState)
-		mouseX, mouseY, _ := sdl.GetMouseState()
-		camera.UpdateCamera(dir, elapsedTime, float32(mouseX-prevMouseX), float32(mouseY-prevMouseY))
-		prevMouseX, prevMouseY = mouseX, mouseY
+		camera.UpdateCamera(dir, elapsedTime, float32(mouseX), float32(mouseY))
 
 		gl.ClearColor(0.1, 0.1, 0.1, 1.0)
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
@@ -211,6 +215,7 @@ func keyStrokes(keyboardState []uint8) glHelper.Direction {
 	} else if keyboardState[sdl.SCANCODE_S] != 0 {
 		dir = glHelper.Backward
 	} else if keyboardState[sdl.SCANCODE_ESCAPE] != 0 {
+		sdl.SetRelativeMouseMode(false)
 		os.Exit(0)
 	}
 	return dir
