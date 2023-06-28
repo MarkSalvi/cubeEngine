@@ -202,13 +202,13 @@ func main() {
 
 func keyStrokes(keyboardState []uint8) glHelper.Direction {
 	dir := glHelper.Nowhere
-	if keyboardState[sdl.SCANCODE_LEFT] != 0 {
+	if keyboardState[sdl.SCANCODE_A] != 0 {
 		dir = glHelper.Left
-	} else if keyboardState[sdl.SCANCODE_RIGHT] != 0 {
+	} else if keyboardState[sdl.SCANCODE_D] != 0 {
 		dir = glHelper.Right
-	} else if keyboardState[sdl.SCANCODE_UP] != 0 {
+	} else if keyboardState[sdl.SCANCODE_W] != 0 {
 		dir = glHelper.Forward
-	} else if keyboardState[sdl.SCANCODE_DOWN] != 0 {
+	} else if keyboardState[sdl.SCANCODE_S] != 0 {
 		dir = glHelper.Backward
 	} else if keyboardState[sdl.SCANCODE_ESCAPE] != 0 {
 		os.Exit(0)
