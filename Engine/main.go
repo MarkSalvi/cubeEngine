@@ -6,9 +6,11 @@ import (
 	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/go-gl/mathgl/mgl32"
 	"github.com/veandco/go-sdl2/sdl"
+	"math"
 	"os"
 	"runtime"
 	"time"
+	"unsafe"
 )
 
 const (
@@ -16,58 +18,59 @@ const (
 	windHeight = 1080
 )
 
+var vertices = []float32{
+	-0.5, -0.5, -0.5, 0.0, 0.0, -1.0,
+	0.5, -0.5, -0.5, 0.0, 0.0, -1.0,
+	0.5, 0.5, -0.5, 0.0, 0.0, -1.0,
+	0.5, 0.5, -0.5, 0.0, 0.0, -1.0,
+	-0.5, 0.5, -0.5, 0.0, 0.0, -1.0,
+	-0.5, -0.5, -0.5, 0.0, 0.0, -1.0,
+
+	-0.5, -0.5, 0.5, 0.0, 0.0, 1.0,
+	0.5, -0.5, 0.5, 0.0, 0.0, 1.0,
+	0.5, 0.5, 0.5, 0.0, 0.0, 1.0,
+	0.5, 0.5, 0.5, 0.0, 0.0, 1.0,
+	-0.5, 0.5, 0.5, 0.0, 0.0, 1.0,
+	-0.5, -0.5, 0.5, 0.0, 0.0, 1.0,
+
+	-0.5, 0.5, 0.5, -1.0, 0.0, 0.0,
+	-0.5, 0.5, -0.5, -1.0, 0.0, 0.0,
+	-0.5, -0.5, -0.5, -1.0, 0.0, 0.0,
+	-0.5, -0.5, -0.5, -1.0, 0.0, 0.0,
+	-0.5, -0.5, 0.5, -1.0, 0.0, 0.0,
+	-0.5, 0.5, 0.5, -1.0, 0.0, 0.0,
+
+	0.5, 0.5, 0.5, 1.0, 0.0, 0.0,
+	0.5, 0.5, -0.5, 1.0, 0.0, 0.0,
+	0.5, -0.5, -0.5, 1.0, 0.0, 0.0,
+	0.5, -0.5, -0.5, 1.0, 0.0, 0.0,
+	0.5, -0.5, 0.5, 1.0, 0.0, 0.0,
+	0.5, 0.5, 0.5, 1.0, 0.0, 0.0,
+
+	-0.5, -0.5, -0.5, 0.0, -1.0, 0.0,
+	0.5, -0.5, -0.5, 0.0, -1.0, 0.0,
+	0.5, -0.5, 0.5, 0.0, -1.0, 0.0,
+	0.5, -0.5, 0.5, 0.0, -1.0, 0.0,
+	-0.5, -0.5, 0.5, 0.0, -1.0, 0.0,
+	-0.5, -0.5, -0.5, 0.0, -1.0, 0.0,
+
+	-0.5, 0.5, -0.5, 0.0, 1.0, 0.0,
+	0.5, 0.5, -0.5, 0.0, 1.0, 0.0,
+	0.5, 0.5, 0.5, 0.0, 1.0, 0.0,
+	0.5, 0.5, 0.5, 0.0, 1.0, 0.0,
+	-0.5, 0.5, 0.5, 0.0, 1.0, 0.0,
+	-0.5, 0.5, -0.5, 0.0, 1.0, 0.0,
+}
+
 func init() {
 	runtime.LockOSThread()
 }
 
 func main() {
 
-	vertices := []float32{
-		-0.5, -0.5, -0.5, 0.0, 0.0,
-		0.5, -0.5, -0.5, 1.0, 0.0,
-		0.5, 0.5, -0.5, 1.0, 1.0,
-		0.5, 0.5, -0.5, 1.0, 1.0,
-		-0.5, 0.5, -0.5, 0.0, 1.0,
-		-0.5, -0.5, -0.5, 0.0, 0.0,
-
-		-0.5, -0.5, 0.5, 0.0, 0.0,
-		0.5, -0.5, 0.5, 1.0, 0.0,
-		0.5, 0.5, 0.5, 1.0, 1.0,
-		0.5, 0.5, 0.5, 1.0, 1.0,
-		-0.5, 0.5, 0.5, 0.0, 1.0,
-		-0.5, -0.5, 0.5, 0.0, 0.0,
-
-		-0.5, 0.5, 0.5, 1.0, 0.0,
-		-0.5, 0.5, -0.5, 1.0, 1.0,
-		-0.5, -0.5, -0.5, 0.0, 1.0,
-		-0.5, -0.5, -0.5, 0.0, 1.0,
-		-0.5, -0.5, 0.5, 0.0, 0.0,
-		-0.5, 0.5, 0.5, 1.0, 0.0,
-
-		0.5, 0.5, 0.5, 1.0, 0.0,
-		0.5, 0.5, -0.5, 1.0, 1.0,
-		0.5, -0.5, -0.5, 0.0, 1.0,
-		0.5, -0.5, -0.5, 0.0, 1.0,
-		0.5, -0.5, 0.5, 0.0, 0.0,
-		0.5, 0.5, 0.5, 1.0, 0.0,
-
-		-0.5, -0.5, -0.5, 0.0, 1.0,
-		0.5, -0.5, -0.5, 1.0, 1.0,
-		0.5, -0.5, 0.5, 1.0, 0.0,
-		0.5, -0.5, 0.5, 1.0, 0.0,
-		-0.5, -0.5, 0.5, 0.0, 0.0,
-		-0.5, -0.5, -0.5, 0.0, 1.0,
-
-		-0.5, 0.5, -0.5, 0.0, 1.0,
-		0.5, 0.5, -0.5, 1.0, 1.0,
-		0.5, 0.5, 0.5, 1.0, 0.0,
-		0.5, 0.5, 0.5, 1.0, 0.0,
-		-0.5, 0.5, 0.5, 0.0, 0.0,
-		-0.5, 0.5, -0.5, 0.0, 1.0}
-
 	cubePositions := []mgl32.Vec3{
 		mgl32.Vec3{0.0, 0.0, 0.0},
-		mgl32.Vec3{2.0, 5.0, -15.0},
+		mgl32.Vec3{2.0, 5.0, -5.0},
 		mgl32.Vec3{-1.5, -2.2, -3.0},
 		//mgl32.Vec3{-3.8, -2.0, -12.3},
 		//mgl32.Vec3{2.4, -0.4, -3.5},
@@ -77,6 +80,8 @@ func main() {
 		//mgl32.Vec3{1.5, 0.2, -1.5},
 		//mgl32.Vec3{-1.3, 1.0, -1.5},
 	}
+
+	lightCubePosition := mgl32.Vec3{2.0, 2.0, -2.0}
 
 	err := sdl.Init(sdl.INIT_EVERYTHING)
 	if err != nil {
@@ -118,14 +123,14 @@ func main() {
 
 	glHelper.BufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW)
 
-	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 5*4, gl.Ptr(nil))
+	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 6*4, gl.Ptr(nil))
 	gl.EnableVertexAttribArray(0)
-	//gl.VertexAttribPointer(1, 2, gl.FLOAT, false, 5*4, gl.PtrOffset(2*4))
-	//gl.EnableVertexAttribArray(1)
+	gl.VertexAttribPointer(1, 3, gl.FLOAT, false, 6*4, gl.Ptr(3*unsafe.Sizeof(float32(0))))
+	gl.EnableVertexAttribArray(1)
 
 	lightVAO := glHelper.GenBindVertexArray()
 
-	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 5*4, gl.Ptr(nil))
+	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 6*4, gl.Ptr(nil))
 	gl.EnableVertexAttribArray(0)
 	glHelper.BindVertexArray(0)
 
@@ -138,7 +143,7 @@ func main() {
 	sdl.SetRelativeMouseMode(true)
 	sdl.WarpMouseGlobal((windWidth+20)/2, (windHeight+20)/2)
 	gl.Enable(gl.DEPTH_TEST)
-
+	tempo := time.Now()
 	//game Loop
 	for {
 		frameStart := time.Now()
@@ -151,7 +156,6 @@ func main() {
 				return
 			case *sdl.MouseMotionEvent:
 				mouseX, mouseY = t.XRel, t.YRel
-				//todo fix max and min pitch camera problem
 			}
 		}
 
@@ -164,6 +168,8 @@ func main() {
 		shaderProgram.Use()
 		shaderProgram.SetVec3("objectColor", mgl32.Vec3{0.5, 0.5, 1.0})
 		shaderProgram.SetVec3("lightColor", mgl32.Vec3{1.0, 1.0, 1.0})
+		shaderProgram.SetVec3("lightPos", lightCubePosition)
+		shaderProgram.SetVec3("viewPos", camera.GetCameraPosition())
 		projectionMatrix := mgl32.Perspective(mgl32.DegToRad(90.0), float32(windWidth)/float32(windHeight), 0.1, 100.0)
 		shaderProgram.SetMat4("view", camera.GetViewMatrix())
 		shaderProgram.SetMat4("projection", projectionMatrix)
@@ -184,10 +190,12 @@ func main() {
 		}
 
 		lightProgram.Use()
+		lightProgram.SetVec3("lightPos", lightCubePosition)
 		lightProgram.SetMat4("view", camera.GetViewMatrix())
 		lightProgram.SetMat4("projection", projectionMatrix)
+		lightProgram.SetVec3("viewPos", camera.GetCameraPosition())
 		lightModel := mgl32.Ident4()
-		lightModel = mgl32.Translate3D(1.0, 1.0, -2.0).Mul4(lightModel)
+		lightModel = mgl32.Translate3D(lightCubePosition.X(), lightCubePosition.Y(), lightCubePosition.Z()).Mul4(lightModel)
 		lightModel.Mul4x1(mgl32.Vec4{0.2, 0.2, 0.2, 1.0})
 		lightProgram.SetMat4("model", lightModel)
 
@@ -199,6 +207,9 @@ func main() {
 		lightProgram.CheckShaderForChanges()
 
 		elapsedTime = float32(time.Since(frameStart).Seconds() * 1000)
+
+		tempoCubo := time.Since(tempo).Seconds()
+		lightCubePosition = mgl32.Vec3{float32(math.Cos(tempoCubo)) * 4, float32(math.Sin(tempoCubo)) * 4, -2.0}
 
 	}
 
