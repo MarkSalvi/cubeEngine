@@ -19,47 +19,48 @@ const (
 )
 
 var vertices = []float32{
-	-0.5, -0.5, -0.5, 0.0, 0.0, -1.0,
-	0.5, -0.5, -0.5, 0.0, 0.0, -1.0,
-	0.5, 0.5, -0.5, 0.0, 0.0, -1.0,
-	0.5, 0.5, -0.5, 0.0, 0.0, -1.0,
-	-0.5, 0.5, -0.5, 0.0, 0.0, -1.0,
-	-0.5, -0.5, -0.5, 0.0, 0.0, -1.0,
+	// positions          // normals           // texture coords
+	-0.5, -0.5, -0.5, 0.0, 0.0, -1.0, 0.0, 0.0,
+	0.5, -0.5, -0.5, 0.0, 0.0, -1.0, 1.0, 0.0,
+	0.5, 0.5, -0.5, 0.0, 0.0, -1.0, 1.0, 1.0,
+	0.5, 0.5, -0.5, 0.0, 0.0, -1.0, 1.0, 1.0,
+	-0.5, 0.5, -0.5, 0.0, 0.0, -1.0, 0.0, 1.0,
+	-0.5, -0.5, -0.5, 0.0, 0.0, -1.0, 0.0, 0.0,
 
-	-0.5, -0.5, 0.5, 0.0, 0.0, 1.0,
-	0.5, -0.5, 0.5, 0.0, 0.0, 1.0,
-	0.5, 0.5, 0.5, 0.0, 0.0, 1.0,
-	0.5, 0.5, 0.5, 0.0, 0.0, 1.0,
-	-0.5, 0.5, 0.5, 0.0, 0.0, 1.0,
-	-0.5, -0.5, 0.5, 0.0, 0.0, 1.0,
+	-0.5, -0.5, 0.5, 0.0, 0.0, 1.0, 0.0, 0.0,
+	0.5, -0.5, 0.5, 0.0, 0.0, 1.0, 1.0, 0.0,
+	0.5, 0.5, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0,
+	0.5, 0.5, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0,
+	-0.5, 0.5, 0.5, 0.0, 0.0, 1.0, 0.0, 1.0,
+	-0.5, -0.5, 0.5, 0.0, 0.0, 1.0, 0.0, 0.0,
 
-	-0.5, 0.5, 0.5, -1.0, 0.0, 0.0,
-	-0.5, 0.5, -0.5, -1.0, 0.0, 0.0,
-	-0.5, -0.5, -0.5, -1.0, 0.0, 0.0,
-	-0.5, -0.5, -0.5, -1.0, 0.0, 0.0,
-	-0.5, -0.5, 0.5, -1.0, 0.0, 0.0,
-	-0.5, 0.5, 0.5, -1.0, 0.0, 0.0,
+	-0.5, 0.5, 0.5, -1.0, 0.0, 0.0, 1.0, 0.0,
+	-0.5, 0.5, -0.5, -1.0, 0.0, 0.0, 1.0, 1.0,
+	-0.5, -0.5, -0.5, -1.0, 0.0, 0.0, 0.0, 1.0,
+	-0.5, -0.5, -0.5, -1.0, 0.0, 0.0, 0.0, 1.0,
+	-0.5, -0.5, 0.5, -1.0, 0.0, 0.0, 0.0, 0.0,
+	-0.5, 0.5, 0.5, -1.0, 0.0, 0.0, 1.0, 0.0,
 
-	0.5, 0.5, 0.5, 1.0, 0.0, 0.0,
-	0.5, 0.5, -0.5, 1.0, 0.0, 0.0,
-	0.5, -0.5, -0.5, 1.0, 0.0, 0.0,
-	0.5, -0.5, -0.5, 1.0, 0.0, 0.0,
-	0.5, -0.5, 0.5, 1.0, 0.0, 0.0,
-	0.5, 0.5, 0.5, 1.0, 0.0, 0.0,
+	0.5, 0.5, 0.5, 1.0, 0.0, 0.0, 1.0, 0.0,
+	0.5, 0.5, -0.5, 1.0, 0.0, 0.0, 1.0, 1.0,
+	0.5, -0.5, -0.5, 1.0, 0.0, 0.0, 0.0, 1.0,
+	0.5, -0.5, -0.5, 1.0, 0.0, 0.0, 0.0, 1.0,
+	0.5, -0.5, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0,
+	0.5, 0.5, 0.5, 1.0, 0.0, 0.0, 1.0, 0.0,
 
-	-0.5, -0.5, -0.5, 0.0, -1.0, 0.0,
-	0.5, -0.5, -0.5, 0.0, -1.0, 0.0,
-	0.5, -0.5, 0.5, 0.0, -1.0, 0.0,
-	0.5, -0.5, 0.5, 0.0, -1.0, 0.0,
-	-0.5, -0.5, 0.5, 0.0, -1.0, 0.0,
-	-0.5, -0.5, -0.5, 0.0, -1.0, 0.0,
+	-0.5, -0.5, -0.5, 0.0, -1.0, 0.0, 0.0, 1.0,
+	0.5, -0.5, -0.5, 0.0, -1.0, 0.0, 1.0, 1.0,
+	0.5, -0.5, 0.5, 0.0, -1.0, 0.0, 1.0, 0.0,
+	0.5, -0.5, 0.5, 0.0, -1.0, 0.0, 1.0, 0.0,
+	-0.5, -0.5, 0.5, 0.0, -1.0, 0.0, 0.0, 0.0,
+	-0.5, -0.5, -0.5, 0.0, -1.0, 0.0, 0.0, 1.0,
 
-	-0.5, 0.5, -0.5, 0.0, 1.0, 0.0,
-	0.5, 0.5, -0.5, 0.0, 1.0, 0.0,
-	0.5, 0.5, 0.5, 0.0, 1.0, 0.0,
-	0.5, 0.5, 0.5, 0.0, 1.0, 0.0,
-	-0.5, 0.5, 0.5, 0.0, 1.0, 0.0,
-	-0.5, 0.5, -0.5, 0.0, 1.0, 0.0,
+	-0.5, 0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 1.0,
+	0.5, 0.5, -0.5, 0.0, 1.0, 0.0, 1.0, 1.0,
+	0.5, 0.5, 0.5, 0.0, 1.0, 0.0, 1.0, 0.0,
+	0.5, 0.5, 0.5, 0.0, 1.0, 0.0, 1.0, 0.0,
+	-0.5, 0.5, 0.5, 0.0, 1.0, 0.0, 0.0, 0.0,
+	-0.5, 0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 1.0,
 }
 
 func init() {
@@ -72,16 +73,19 @@ func main() {
 		mgl32.Vec3{0.0, 0.0, 0.0},
 		mgl32.Vec3{2.0, 5.0, -5.0},
 		mgl32.Vec3{-1.5, -2.2, -3.0},
-		//mgl32.Vec3{-3.8, -2.0, -12.3},
-		//mgl32.Vec3{2.4, -0.4, -3.5},
-		//mgl32.Vec3{-1.7, 3.0, -7.5},
-		//mgl32.Vec3{1.3, -2.0, -2.5},
-		//mgl32.Vec3{1.5, 2.0, -2.5},
-		//mgl32.Vec3{1.5, 0.2, -1.5},
-		//mgl32.Vec3{-1.3, 1.0, -1.5},
+		mgl32.Vec3{-3.8, -2.0, -12.3},
+		mgl32.Vec3{2.4, -0.4, -3.5},
+		mgl32.Vec3{-1.7, 3.0, -7.5},
+		mgl32.Vec3{1.3, -2.0, -2.5},
+		mgl32.Vec3{1.5, 2.0, -2.5},
+		mgl32.Vec3{1.5, 0.2, -1.5},
+		mgl32.Vec3{-1.3, 1.0, -1.5},
 	}
 
-	lightCubePosition := mgl32.Vec3{2.0, 2.0, -2.0}
+	lightCubePositions := []mgl32.Vec3{
+		mgl32.Vec3{2.0, 2.0, 2.0},
+		mgl32.Vec3{5.0, -3.0, -10.0},
+	}
 
 	err := sdl.Init(sdl.INIT_EVERYTHING)
 	if err != nil {
@@ -111,26 +115,29 @@ func main() {
 		panic(err)
 	}
 
-	lightProgram, err := glHelper.NewShader("shaders\\cubevertex.vert", "shaders\\lightFrag.frag")
+	lightProgram, err := glHelper.NewShader("shaders\\lightvertex.glsl", "shaders\\lightFrag.frag")
 	if err != nil {
 		panic(err)
 	}
 
-	//texture := glHelper.LoadTexture("assets\\cobblestone.png")
+	diffuseMap := glHelper.LoadTexture("assets\\container2.png")
+	specularMap := glHelper.LoadTexture("assets\\container2_specular.png")
 
 	glHelper.GenBindBuffer(gl.ARRAY_BUFFER)
 	cubeVAO := glHelper.GenBindVertexArray()
 
 	glHelper.BufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW)
 
-	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 6*4, gl.Ptr(nil))
+	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 8*4, gl.Ptr(nil))
 	gl.EnableVertexAttribArray(0)
-	gl.VertexAttribPointer(1, 3, gl.FLOAT, false, 6*4, gl.Ptr(3*unsafe.Sizeof(float32(0))))
+	gl.VertexAttribPointer(1, 3, gl.FLOAT, false, 8*4, gl.Ptr(3*unsafe.Sizeof(float32(0))))
 	gl.EnableVertexAttribArray(1)
+	gl.VertexAttribPointer(2, 2, gl.FLOAT, false, 8*4, gl.Ptr(6*unsafe.Sizeof(float32(0))))
+	gl.EnableVertexAttribArray(2)
 
 	lightVAO := glHelper.GenBindVertexArray()
 
-	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 6*4, gl.Ptr(nil))
+	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 8*4, gl.Ptr(nil))
 	gl.EnableVertexAttribArray(0)
 	glHelper.BindVertexArray(0)
 
@@ -144,6 +151,13 @@ func main() {
 	sdl.WarpMouseGlobal((windWidth+20)/2, (windHeight+20)/2)
 	gl.Enable(gl.DEPTH_TEST)
 	tempo := time.Now()
+
+	var tempoCubo float64
+
+	shaderProgram.Use()
+	shaderProgram.SetInt("material.diffuse", 0)
+	shaderProgram.SetInt("material.specular", 1)
+
 	//game Loop
 	for {
 		frameStart := time.Now()
@@ -166,10 +180,57 @@ func main() {
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
 		shaderProgram.Use()
-		shaderProgram.SetVec3("objectColor", mgl32.Vec3{0.5, 0.5, 1.0})
-		shaderProgram.SetVec3("lightColor", mgl32.Vec3{1.0, 1.0, 1.0})
-		shaderProgram.SetVec3("lightPos", lightCubePosition)
+		//initializing all the uniforms
 		shaderProgram.SetVec3("viewPos", camera.GetCameraPosition())
+		//setting material properties
+		shaderProgram.SetFloat("material.shininess", 64)
+
+		//setting light properties
+
+		//directional light
+		shaderProgram.SetVec3("dirLight.direction", mgl32.Vec3{-0.2, -1.0, -0.3})
+		shaderProgram.SetVec3("dirLight.ambient", mgl32.Vec3{0.05, 0.05, 0.05})
+		shaderProgram.SetVec3("dirLight.diffuse", mgl32.Vec3{0.4, 0.4, 0.4})
+		shaderProgram.SetVec3("dirLight.specular", mgl32.Vec3{0.5, 0.5, 0.5})
+
+		//point light1
+		pointLightColor1 := mgl32.Vec3{
+			(float32(math.Cos(tempoCubo)) * 0.7) + 0.2,
+			(float32(math.Cos(tempoCubo)) * 2.0) + 0.2,
+			(float32(math.Cos(tempoCubo)) * 1.3) + 0.2,
+		}
+
+		shaderProgram.SetVec3("pointLights[0].position", lightCubePositions[0])
+		shaderProgram.SetVec3("pointLights[0].ambient", glHelper.MulVec3(pointLightColor1, mgl32.Vec3{0.05, 0.05, 0.05}))
+		shaderProgram.SetVec3("pointLights[0].diffuse", glHelper.MulVec3(pointLightColor1, mgl32.Vec3{0.8, 0.8, 0.8}))
+		shaderProgram.SetVec3("pointLights[0].specular", mgl32.Vec3{1, 1, 1})
+		shaderProgram.SetFloat("pointLights[0].constant", 1)
+		shaderProgram.SetFloat("pointLights[0].linear", 0.027)
+		shaderProgram.SetFloat("pointLights[0].quadratic", 0.0028)
+
+		//point light 2
+		pointLightColor2 := mgl32.Vec3{
+			(float32(math.Sin(tempoCubo)) * 1.3) + 0.2,
+			(float32(math.Sin(tempoCubo)) * 0.3) + 0.2,
+			(float32(math.Sin(tempoCubo)) * 2) + 0.2,
+		}
+
+		shaderProgram.SetVec3("pointLights[1].position", lightCubePositions[1])
+		shaderProgram.SetVec3("pointLights[1].ambient", glHelper.MulVec3(pointLightColor2, mgl32.Vec3{0.05, 0.05, 0.05}))
+		shaderProgram.SetVec3("pointLights[1].diffuse", glHelper.MulVec3(pointLightColor2, mgl32.Vec3{0.8, 0.8, 0.8}))
+		shaderProgram.SetVec3("pointLights[1].specular", mgl32.Vec3{1, 1, 1})
+		shaderProgram.SetFloat("pointLights[1].constant", 1)
+		shaderProgram.SetFloat("pointLights[1].linear", 0.027)
+		shaderProgram.SetFloat("pointLights[1].quadratic", 0.0028)
+
+		//bind diffuse map
+		gl.ActiveTexture(gl.TEXTURE0)
+		glHelper.BindTexture(diffuseMap)
+		//bind specular map
+		gl.ActiveTexture(gl.TEXTURE1)
+		glHelper.BindTexture(specularMap)
+
+		//setting view/projection matrix
 		projectionMatrix := mgl32.Perspective(mgl32.DegToRad(90.0), float32(windWidth)/float32(windHeight), 0.1, 100.0)
 		shaderProgram.SetMat4("view", camera.GetViewMatrix())
 		shaderProgram.SetMat4("projection", projectionMatrix)
@@ -190,26 +251,31 @@ func main() {
 		}
 
 		lightProgram.Use()
-		lightProgram.SetVec3("lightPos", lightCubePosition)
+
 		lightProgram.SetMat4("view", camera.GetViewMatrix())
 		lightProgram.SetMat4("projection", projectionMatrix)
-		lightProgram.SetVec3("viewPos", camera.GetCameraPosition())
-		lightModel := mgl32.Ident4()
-		lightModel = mgl32.Translate3D(lightCubePosition.X(), lightCubePosition.Y(), lightCubePosition.Z()).Mul4(lightModel)
-		lightModel.Mul4x1(mgl32.Vec4{0.2, 0.2, 0.2, 1.0})
-		lightProgram.SetMat4("model", lightModel)
 
+		tempoCubo = time.Since(tempo).Seconds()
 		glHelper.BindVertexArray(lightVAO)
-		gl.DrawArrays(gl.TRIANGLES, 0, 36)
+		for i := 0; i < 2; i++ {
+			lightModel := mgl32.Ident4()
+			lightModel = mgl32.Translate3D(lightCubePositions[i].X(), lightCubePositions[i].Y(), lightCubePositions[i].Z()).Mul4(lightModel)
+			lightModel.Mul4x1(mgl32.Vec4{0.2, 0.2, 0.2, 1.0})
+			lightProgram.SetMat4("model", lightModel)
+			gl.DrawArrays(gl.TRIANGLES, 0, 36)
+			lightCubePositions[i] = mgl32.Vec3{
+				float32(math.Cos(tempoCubo)) * 5,
+				float32(math.Sin(tempoCubo)) * -3,
+				lightCubePositions[i].Z(),
+			}
+
+		}
 
 		window.GLSwap()
 		shaderProgram.CheckShaderForChanges()
 		lightProgram.CheckShaderForChanges()
 
 		elapsedTime = float32(time.Since(frameStart).Seconds() * 1000)
-
-		tempoCubo := time.Since(tempo).Seconds()
-		lightCubePosition = mgl32.Vec3{float32(math.Cos(tempoCubo)) * 4, float32(math.Sin(tempoCubo)) * 4, -2.0}
 
 	}
 
@@ -230,9 +296,5 @@ func keyStrokes(keyboardState []uint8) glHelper.Direction {
 		os.Exit(0)
 	}
 	return dir
-
-}
-
-func mouseAndKeyboard() {
 
 }

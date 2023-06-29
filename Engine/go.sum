@@ -1,5 +1,5 @@
-github.com/MarkSalvi/glHelper v0.12.0 h1:Prk73aHQGJgbzmRyERAxZLlqLTEy6SYZDRBe5beiJhw=
-github.com/MarkSalvi/glHelper v0.12.0/go.mod h1:8ody7CUCD3vPkNHTro9bR6VGkRQEkP5rzY0GUryqJ9Y=
+github.com/MarkSalvi/glHelper v0.13.0 h1:XlnnPt561ZFAY7QcLmBKHGF5VXClgd2e2S+GtdioEmY=
+github.com/MarkSalvi/glHelper v0.13.0/go.mod h1:8ody7CUCD3vPkNHTro9bR6VGkRQEkP5rzY0GUryqJ9Y=
 github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6 h1:zDw5v7qm4yH7N8C8uWd+8Ii9rROdgWxQuGoJ9WDXxfk=
 github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6/go.mod h1:9YTyiznxEY1fVinfM7RvRcjRHbw2xLBJ3AAGIT0I4Nw=
 github.com/go-gl/mathgl v1.0.0 h1:t9DznWJlXxxjeeKLIdovCOVJQk/GzDEL7h/h+Ro2B68=
