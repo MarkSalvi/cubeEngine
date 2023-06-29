@@ -146,21 +146,26 @@ func main() {
 	worldUp := mgl32.Vec3{0.0, 1.0, 0.0}
 
 	camera := glHelper.NewCamera(position, worldUp, -90.0, 0.0, 0.01, 0.5)
-	elapsedTime := float32(0)
+
 	sdl.SetRelativeMouseMode(true)
 	sdl.WarpMouseGlobal((windWidth+20)/2, (windHeight+20)/2)
 	gl.Enable(gl.DEPTH_TEST)
-	tempo := time.Now()
 
 	var tempoCubo float64
+	inizio := time.Now()
 
 	shaderProgram.Use()
 	shaderProgram.SetInt("material.diffuse", 0)
 	shaderProgram.SetInt("material.specular", 1)
 
+	elapsedTime := float64(0)
+	fpsCounter := 0
+	timeCounter := time.Now()
+
 	//game Loop
 	for {
 		frameStart := time.Now()
+
 		var mouseX, mouseY int32
 
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
@@ -174,7 +179,7 @@ func main() {
 		}
 
 		dir := keyStrokes(keyboardState)
-		camera.UpdateCamera(dir, elapsedTime, float32(mouseX), float32(mouseY))
+		camera.UpdateCamera(dir, float32(elapsedTime), float32(mouseX), float32(mouseY))
 
 		gl.ClearColor(0.1, 0.1, 0.1, 1.0)
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
@@ -255,7 +260,7 @@ func main() {
 		lightProgram.SetMat4("view", camera.GetViewMatrix())
 		lightProgram.SetMat4("projection", projectionMatrix)
 
-		tempoCubo = time.Since(tempo).Seconds()
+		tempoCubo = time.Since(inizio).Seconds()
 		glHelper.BindVertexArray(lightVAO)
 		for i := 0; i < 2; i++ {
 			lightModel := mgl32.Ident4()
@@ -275,7 +280,14 @@ func main() {
 		shaderProgram.CheckShaderForChanges()
 		lightProgram.CheckShaderForChanges()
 
-		elapsedTime = float32(time.Since(frameStart).Seconds() * 1000)
+		//framerate stuff
+		elapsedTime = time.Since(frameStart).Seconds() * 1000
+		fpsCounter++
+		if time.Since(timeCounter).Seconds() > 1 {
+			fmt.Println("FPS: ", fpsCounter)
+			fpsCounter = 0
+			timeCounter = time.Now()
+		}
 
 	}
 
@@ -294,7 +306,12 @@ func keyStrokes(keyboardState []uint8) glHelper.Direction {
 	} else if keyboardState[sdl.SCANCODE_ESCAPE] != 0 {
 		sdl.SetRelativeMouseMode(false)
 		os.Exit(0)
+	} else if keyboardState[sdl.SCANCODE_F1] != 0 {
+		gl.PolygonMode(gl.FRONT_AND_BACK, gl.LINE)
+	} else if keyboardState[sdl.SCANCODE_F2] != 0 {
+		gl.PolygonMode(gl.FRONT_AND_BACK, gl.FILL)
 	}
+
 	return dir
 
 }
